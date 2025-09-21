@@ -1,19 +1,15 @@
 steps:
-  # Step 1: Install all dependencies, including firebase-tools
+  # Installs dependencies cleanly using package-lock.json
   - name: 'node:18'
-    id: 'npm install'
     entrypoint: npm
-    args: ['install']
+    args: ['ci']
 
-  # Step 2: Build the Next.js production app and export static files
+  # Builds the Next.js static site
   - name: 'node:18'
-    id: 'npm build'
     entrypoint: npm
     args: ['run', 'build']
 
-  # Step 3: Run our local deploy script
-  # This uses the 'firebase-tools' we just installed in Step 1
+  # Deploys using the firebase-tools installed in node_modules
   - name: 'node:18'
-    id: 'Deploy to Firebase'
     entrypoint: npm
     args: ['run', 'deploy']
