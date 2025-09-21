@@ -1,15 +1,23 @@
-steps:
-  # Installs dependencies cleanly using package-lock.json
-  - name: 'node:18'
-    entrypoint: npm
-    args: ['ci']
+options:
+  # This line explicitly tells Cloud Build where to store logs,
+  # satisfying the policy requirement from the error message.
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
-  # Builds the Next.js static site
+steps:
+  # Step 1: Install dependencies cleanly
   - name: 'node:18'
-    entrypoint: npm
+    id: 'Install Dependencies'
+    entrypoint: 'npm'
+    args: ['ci'] # 'ci' is faster and safer for pipelines than 'install'
+
+  # Step 2: Build the Next.js static site
+  - name: 'node:18'
+    id: 'Build Application'
+    entrypoint: 'npm'
     args: ['run', 'build']
 
-  # Deploys using the firebase-tools installed in node_modules
+  # Step 3: Deploy to Firebase Hosting
   - name: 'node:18'
-    entrypoint: npm
+    id: 'Deploy to Firebase'
+    entrypoint: 'npm'
     args: ['run', 'deploy']
