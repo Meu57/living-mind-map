@@ -5,13 +5,21 @@ options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
 steps:
+  # Step 1: Install project dependencies
   - name: 'node:18'
+    id: 'npm install'
     entrypoint: npm
     args: ['install']
 
+  # Step 2: Build the Next.js production app and export static files
   - name: 'node:18'
+    id: 'npm build'
     entrypoint: npm
     args: ['run', 'build']
 
-  - name: 'gcr.io/firebase-tools/firebase'
+  # Step 3: Deploy the static 'out' directory to Firebase Hosting
+  # OLD, PROBLEMATIC PATH: 'gcr.io/firebase-tools/firebase'
+  # NEW, OFFICIAL PATH:
+  - name: 'gcr.io/cloud-builders/firebase'
+    id: 'Deploy to Firebase'
     args: ['deploy', '--only', 'hosting']
