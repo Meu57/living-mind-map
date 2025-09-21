@@ -1,3 +1,6 @@
+
+# cloudbuild.yaml
+# Cloud Build configuration file to build and deploy a Next.js app to Firebase Hosting  
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
