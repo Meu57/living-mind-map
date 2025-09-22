@@ -1,23 +1,21 @@
 options:
-  # This line explicitly tells Cloud Build where to store logs,
-  # satisfying the policy requirement from the error message.
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
 steps:
-  # Step 1: Install dependencies cleanly
-  - name: 'node:18'
+  # Use the modern, required Node.js version
+  - name: 'node:20'
     id: 'Install Dependencies'
     entrypoint: 'npm'
-    args: ['ci'] # 'ci' is faster and safer for pipelines than 'install'
+    args: ['ci']
 
-  # Step 2: Build the Next.js static site
-  - name: 'node:18'
+  # Use the same Node.js version for the build
+  - name: 'node:20'
     id: 'Build Application'
     entrypoint: 'npm'
     args: ['run', 'build']
 
-  # Step 3: Deploy to Firebase Hosting
-  - name: 'node:18'
+  # And use the same Node.js version for the deployment
+  - name: 'node:20'
     id: 'Deploy to Firebase'
     entrypoint: 'npm'
     args: ['run', 'deploy']
