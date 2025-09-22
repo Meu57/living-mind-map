@@ -1,5 +1,3 @@
-// app/layout.tsx
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -31,6 +29,7 @@ export default function RootLayout({
             width: "100%",
             height: "100%",
             zIndex: -1,
+            pointerEvents: "auto", // Ensures mouse input reaches canvas
           }}
         >
           <Experience />

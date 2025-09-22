@@ -1,10 +1,3 @@
-// src/components/3d/Experience.tsx
-
-// Step 2.1: This is the MOST IMPORTANT line.
-// It tells Next.js that this component, and all components it imports,
-// are "Client Components". This means they will only render in the browser,
-// where the necessary APIs for WebGL (like the 'window' object) exist.
-// Our 3D world cannot run on the server.
 "use client";
 
 // Step 2.2: Import necessary components from our installed libraries.
@@ -14,7 +7,6 @@ import { Box, OrbitControls } from "@react-three/drei";
 // Step 2.3: Define our main 3D component.
 export const Experience = () => {
   return (
-    // Step 2.4: Set up the R3F Canvas.
     <Canvas
       shadows
       camera={{ position: [0, 2, 5], fov: 50 }}
@@ -42,7 +34,7 @@ export const Experience = () => {
       </mesh>
 
       {/* Step 2.8: Add controls to interact with the scene. */}
-      <OrbitControls makeDefault />
+      <OrbitControls makeDefault enableZoom enablePan enableRotate />
     </Canvas>
   );
 };
