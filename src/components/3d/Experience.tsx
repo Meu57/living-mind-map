@@ -1,21 +1,26 @@
 // src/components/3d/Experience.tsx
+
+// Step 2.1: This is the MOST IMPORTANT line.
+// It tells Next.js that this component, and all components it imports,
+// are "Client Components". This means they will only render in the browser,
+// where the necessary APIs for WebGL (like the 'window' object) exist.
+// Our 3D world cannot run on the server.
 "use client";
 
-import React from "react";
+// Step 2.2: Import necessary components from our installed libraries.
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Box } from "@react-three/drei";
+import { Box, OrbitControls } from "@react-three/drei";
 
-/**
- * Small, robust R3F scene. Uses rotation array (TS-friendly),
- * sets camera position, enables shadows and OrbitControls.
- */
-export const Experience: React.FC = () => {
+// Step 2.3: Define our main 3D component.
+export const Experience = () => {
   return (
+    // Step 2.4: Set up the R3F Canvas.
     <Canvas
       shadows
       camera={{ position: [0, 2, 5], fov: 50 }}
       style={{ width: "100%", height: "100%" }}
     >
+      {/* Step 2.5: Add lighting to the scene. */}
       <ambientLight intensity={0.5} />
       <directionalLight
         position={[5, 5, 5]}
@@ -25,15 +30,18 @@ export const Experience: React.FC = () => {
         shadow-mapSize-height={1024}
       />
 
+      {/* Step 2.6: Add our first 3D object. */}
       <Box position={[-1, 1, 0]} castShadow>
         <meshStandardMaterial color="orange" />
       </Box>
 
+      {/* Step 2.7: Add a "floor" for shadows to fall on. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[10, 10]} />
         <meshStandardMaterial color="white" />
       </mesh>
 
+      {/* Step 2.8: Add controls to interact with the scene. */}
       <OrbitControls makeDefault />
     </Canvas>
   );
